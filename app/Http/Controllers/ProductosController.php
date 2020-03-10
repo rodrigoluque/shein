@@ -49,12 +49,11 @@ class ProductosController extends Controller
      */
     public function store(Request $request)
     {
-        //
-    /*  $validacion = $request->validate([
+        $validacion = $request->validate([
             'prdImagen' => 'file|mimes:jpeg,png,jpg,gif,svg|max:2048'
         ]);
 
-        $imageName = 'noDisponible.jpg';
+        $imageName = '';
         if( $request->file('prdImagen') ) {
             //$imageName = time().'.'.request()->prdImagen->getClientOriginalExtension();
             $imagen = $request->file('prdImagen');
@@ -62,13 +61,17 @@ class ProductosController extends Controller
             $imageName = $request->prdImagen->getClientOriginalName();
             $request->prdImagen->move(public_path('images/productos'), $imageName);
         }
-       return $imageName;*/
-       $validacion = $request->validate([
+       else $imageName = 'noDisponible.jpg';
+      
+      /*
+      METODO PARA GUARDAR POR EL METODO STORE DE LARAVEL
+      
+      $validacion = $request->validate([
         'prdImagen' => 'file|mimes:jpeg,png,jpg,gif,svg|max:2048'
     ]);
       
     $ruta=$request->file("prdImagen")->store("public/images");
-    $nombreArchivo=basename($ruta); 
+    $nombreArchivo=basename($ruta);*/ 
 
 
         $prdNombre = $request->input('prdNombre');
@@ -77,7 +80,7 @@ class ProductosController extends Controller
         $idCategoria = $request->input('idCategoria');
         $prdPresentacion = $request->input('prdPresentacion');
         $prdStock = $request->input('prdStock');
-        $prdImagen = $nombreArchivo;
+        $prdImagen = $imageName;
         
         $Producto= new Producto;
         $Producto->prdNombre = $prdNombre;
@@ -133,13 +136,29 @@ class ProductosController extends Controller
      */
     public function update(Request $request)
     {
-         //
+        //
+         /* POR METODO STORE DE LARAVEL
          $validacion = $request->validate([
             'prdImagen' => 'file|mimes:jpeg,png,jpg,gif,svg|max:2048'
         ]);
           
         $ruta=$request->file("prdImagen")->store("public/images");
-        $nombreArchivo=basename($ruta);
+        $nombreArchivo=basename($ruta);*/
+  
+        ## GUARDAMOS  Y MOVEMOS IMAGEN EN CARPETA ##
+        $validacion = $request->validate([
+            'prdImagen' => 'file|mimes:jpeg,png,jpg,gif,svg|max:2048'
+        ]);
+
+        $imageName = '';
+        if( $request->file('prdImagen') ) {
+            //$imageName = time().'.'.request()->prdImagen->getClientOriginalExtension();
+            $imagen = $request->file('prdImagen');
+            //$imagen->getClientOriginalExtension();
+            $imageName = $request->prdImagen->getClientOriginalName();
+            $request->prdImagen->move(public_path('images/productos'), $imageName);
+        }
+       else $imageName = 'noDisponible.jpg';
 
 
         $Producto = Producto::find($request->input('idProducto'));
@@ -149,11 +168,11 @@ class ProductosController extends Controller
         $Producto->idCategoria = $request->input('idCategoria');
         $Producto->prdPresentacion = $request->input('prdPresentacion');
         $Producto->prdStock = $request->input('prdStock');
-        $Producto->prdImagen= $nombreArchivo;
+        $Producto->prdImagen= $imageName;
 
         $Producto->save();
         return redirect('/adminProductos')
-            ->with('mensaje', 'Producto '.$Producto->prdNombre.' modificada con éxito');
+            ->with('mensaje', 'Producto '.$Producto->prdNombre.' modificado con éxito');    
     }
 
 

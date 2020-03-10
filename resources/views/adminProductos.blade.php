@@ -42,7 +42,7 @@
                 <td>{{ $producto->getCategoria->catNombre }}</td>
                 <td>{{ $producto->prdPresentacion }}</td>
                 <td>{{ $producto->prdStock }}</td>
-                <td><img src="/storage/images/{{ $producto->prdImagen }}" class="img-thumbnail" style="width: 200px; height: 200px;"></td>
+                <td><img src="/images/productos/{{ $producto->prdImagen }}" class="img-thumbnail" style="width: 200px; height: 200px;"></td>
                 <td>
                     <div class="d-block"><a href="/formModificarProducto/{{$producto->idProducto}}" class="btn btn-primary ">
                         <i class="material-icons">
