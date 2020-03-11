@@ -87,12 +87,12 @@
       
     </header>
 
-    <main class="container mt-5">
+    <div class="container-fluid mt-5">
         <h1>@yield('h1')</h1>
 
         @yield('main')
 
-    </main>
+    </div>
 
 
     <footer class="footer">

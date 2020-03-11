@@ -16,8 +16,11 @@ class ProductosController extends Controller
      */
     public function index()
     {
-        //
-        $productos = Producto::with('getMarca', 'getCategoria')->get();
+        //Para hacer paginación
+        
+
+        $productos= Producto::with('getMarca', 'getCategoria')->get();
+
         return view('adminProductos',
             [
                 'productos'=>$productos
@@ -146,19 +149,42 @@ class ProductosController extends Controller
         $nombreArchivo=basename($ruta);*/
   
         ## GUARDAMOS  Y MOVEMOS IMAGEN EN CARPETA ##
-        $validacion = $request->validate([
+       /* $validacion = $request->validate([
             'prdImagen' => 'file|mimes:jpeg,png,jpg,gif,svg|max:2048'
-        ]);
+        ]);*/
 
-        $imageName = '';
-        if( $request->file('prdImagen') ) {
-            //$imageName = time().'.'.request()->prdImagen->getClientOriginalExtension();
-            $imagen = $request->file('prdImagen');
-            //$imagen->getClientOriginalExtension();
-            $imageName = $request->prdImagen->getClientOriginalName();
-            $request->prdImagen->move(public_path('images/productos'), $imageName);
-        }
-       else $imageName = 'noDisponible.jpg';
+      
+       # VALIDACION #
+       $reglas=[
+           'prdNombre'=> "string|min:2|max:20",
+           'prdPrecio' => "numeric|min:0|max:20000" ,
+           'prdPresentacion' => "string|min:2|max:30",
+           'prdStock' => "integer|min:0|max:1000",
+           'prdImagen' => 'file|mimes:jpeg,png,jpg,gif,svg|max:2048'
+       ];
+
+       $mensajes=[
+        "string" =>"El campo :attribute debe ser un texto",
+        "min" =>"El campo :attribute tiene que tener un minimo :min de caracteres",
+        "max" =>"El campo :attribute tiene un máximo de :max",
+        "numeric"=>"El campo :attribute debe ser un número",
+        "integer" =>"El campo :attribute de se un número entero",
+        "file" =>"El archivo debe ser jpeg,png,jpg,gig,svg"
+       ];
+
+       $this->validate($request,$reglas,$mensajes);
+
+
+       $imageName = '';
+       if( $request->file('prdImagen') ) {
+           //$imageName = time().'.'.request()->prdImagen->getClientOriginalExtension();
+           $imagen = $request->file('prdImagen');
+           //$imagen->getClientOriginalExtension();
+           $imageName = $request->prdImagen->getClientOriginalName();
+           $request->prdImagen->move(public_path('images/productos'), $imageName);
+       }
+      else $imageName = 'noDisponible.jpg';
+
 
 
         $Producto = Producto::find($request->input('idProducto'));

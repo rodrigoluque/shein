@@ -11,8 +11,8 @@
     <div class="alert bg-light p-4">
     <h6>¿Esta seguro que quiere eliminar el producto? :  {{ $producto->prdNombre }} </h6>
     
-    <div class="card" style="width: 18rem;">
-        <img class="card-img-top" src="/storage/images/{{ $producto->prdImagen }}"  alt="Card image cap">
+    <div class="card-text-center ml-5" style="width: 18rem;">
+        <img class="card-text " src="/images/productos/{{ $producto->prdImagen }}"  alt="Card image cap" style="width:200px; height: 200px; border-color:black;">
         <div class="card-body">
           
         <form action="/eliminarProducto" method="post">

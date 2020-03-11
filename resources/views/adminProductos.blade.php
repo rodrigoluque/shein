@@ -2,7 +2,10 @@
 
     @section('title', 'Panel de Productos')
 
+ 
+
     @section('h1', 'Panel de Productos')
+    <br>
 
     @section('main')
 
@@ -13,6 +16,7 @@
       </div>
      @endif
 
+   <div class="table-responsive">
         <table class="table table-hover table-striped table-bordered">
             <thead class="bg-info">
             <tr>
@@ -23,7 +27,7 @@
                 <th>Presentacion</th>
                 <th>Stock</th>
                 <th>Imagen</th>
-                <th>
+                <th colspan="2">
                     <a href="/formAgregarProducto" class="btn btn-success">
                         
                         <i class="material-icons">
@@ -36,19 +40,19 @@
             <tbody>
         @foreach( $productos as $producto )
             <tr>
-                <td>{{ $producto->prdNombre }}</td>
+                <td >{{ $producto->prdNombre }}</td>
                 <td>{{ $producto->prdPrecio }}</td>
                 <td>{{ $producto->getMarca->mkNombre }}</td>
                 <td>{{ $producto->getCategoria->catNombre }}</td>
                 <td>{{ $producto->prdPresentacion }}</td>
                 <td>{{ $producto->prdStock }}</td>
-                <td><img src="/images/productos/{{ $producto->prdImagen }}" class="img-thumbnail" style="width: 200px; height: 200px;"></td>
+                <td><img src="/images/productos/{{ $producto->prdImagen }}" class="img-thumbnail" style="width: 100px; height: 100px;"></td>
                 <td>
-                    <div class="d-block"><a href="/formModificarProducto/{{$producto->idProducto}}" class="btn btn-primary ">
+                    <div class="d-inline"><a href="/formModificarProducto/{{$producto->idProducto}}" class="btn btn-primary ">
                         <i class="material-icons">
                             create   </i>
                     </a></div>
-                    <div  class="d-block">
+                    <div  class="d-inline">
                     <a href="/formEliminarProducto/{{$producto->idProducto}}" class="btn btn-danger">
                         <i class="material-icons">
                             delete_sweep
@@ -61,6 +65,10 @@
         @endforeach
             </tbody>
         </table>
+    </div>
+
+   
+
      <br>   
 
     @endsection
