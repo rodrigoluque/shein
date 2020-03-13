@@ -13,7 +13,7 @@
 
             <div class="form-group">
                 <label for="prdNombre">Nombre del Producto:</label>
-                <input type="text" class="form-control" name="prdNombre"  value="{{ old('prdNombre') }}" id="prdNombre" placeholder="nombre del Producto" required>
+                <input type="text" class="form-control" name="prdNombre"  value="{{ old('prdNombre') }}" id="prdNombre" placeholder="Nombre del Producto" required>
             </div>
             <div class="form-group">
             <label for="prdPrecio">Precio:</label>
