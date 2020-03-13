@@ -16,7 +16,7 @@
                     @foreach ($errors->get('mkNombre') as $error)
                     <div class="alert alert-danger mt-1"><li>{{ $error }}</li></div>
                   @endforeach
-                    <a href="/adminProductos" class="btn btn-info mt-2">
+                    <a href="/adminMarcas" class="btn btn-info mt-2">
                         <i class="material-icons"> reply</i>
                                Volver
                           </a>

@@ -16,18 +16,14 @@
             <input type="hidden" name="idMarca" value="{{ $marca->idMarca }}">
             <br>
             <a href="/adminMarcas" class="btn btn-info">
-                <i class="material-icons">
-                    reply
-                   
-                    </i>
+                <i class="material-icons">reply</i>
                     Volver
-                </a>
-            <button class="btn btn-danger"><i class="material-icons">
-                delete_sweep
-                </i>
-            Eliminar</button>
-            
-      </form>
+            </a>
+            <button class="btn btn-danger">
+                <i class="material-icons">delete_sweep</i>
+              Eliminar
+            </button>
+        </form>
     </div>
 
     @endsection 

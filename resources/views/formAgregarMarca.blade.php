@@ -16,7 +16,7 @@
             <div class="alert alert-danger mt-1"><li>{{ $error }}</li></div>
           @endforeach
                     
-         <a href="/adminProductos" class="btn btn-info mt-1">
+         <a href="/adminMarcas" class="btn btn-info mt-1">
             <i class="material-icons"> reply</i>
                    Volver
               </a>
