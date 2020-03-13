@@ -1,10 +1,10 @@
 @extends('layout.plantilla')
 
-    @section('title', 'Formulario de modificación un producto')
+    @section('title', 'Formulario de modificación de un producto')
 
     <br>
 
-    @section('h1', 'Formulario de modificación un producto')
+    @section('h1', 'Formulario de modificación de un producto')
 
     @section('main')
 
@@ -20,15 +20,18 @@
 
 
 
-            <div class="alert bg-light p-3">
+            <div class="card bg-light col-md-5 mt-3 p-3 mx-auto"">
                 <form action="/modificarProducto" method="post" enctype="multipart/form-data">
                     @csrf
                 
                     <label>Nombre:</label>
                 <input type="text" name="prdNombre" value="{{ old("prdNombre") }}"  placeholder="{{$producto->prdNombre}}" class="form-control  @error('prdNombre') is-invalid @enderror">
-                    @error('prdNombre')
-                    <div class="alert alert-danger mt-1"><li>{{ $message }}</li></div>
-                    @enderror
+                    @foreach ($errors->get('prdNombre') as $error)
+                    
+                        <div class="alert alert-danger mt-1"><li>{{ $error }}</li></div>
+                    
+                    @endforeach
+
                   
                     <div class="form-group">
                     <label for="prdPrecio">Precio:</label>
@@ -36,13 +39,12 @@
                             <div class="input-group-prepend">
                                 <div class="input-group-text">$</div>
                             </div>
-                        <input type="number" name="prdPrecio" value="{{ old('prdPrecio') }}" placeholder="{{$producto->prdPrecio}}" class="form-control  @error('prdPrecio') is-invalid @enderror"" id="prdPrecio" placeholder="0" min="0" step="0" required>
-                            
-                        </div>
+                        <input type="number" name="prdPrecio" value="{{ old('prdPrecio') }}" placeholder="{{$producto->prdPrecio}}" class="form-control  @error('prdPrecio') is-invalid @enderror"" id="prdPrecio" placeholder="0" min="0" step="0">
+                       </div>
+                        </div> 
                         @error('prdPrecio')
-                            <div class="alert alert-danger mt-1"><li>{{ $message }}</li></div>
-                            @enderror
-                        </div>
+                        <div class="alert alert-danger mt-1"><li>{{ $message }}</li></div>
+                        @enderror
                                          
                     <div class="form-group">
                         <label>Marca:</label>
@@ -68,9 +70,13 @@
 
                      <label>Presentación:</label>
                     <input type="text" name="prdPresentacion" value="{{ old('prdPresentacion')}}" placeholder="{{ $producto->prdPresentacion }}" class="form-control @error('prdPresentacion') is-invalid @enderror">
-                    @error('prdPresentacion')
-                    <div class="alert alert-danger mt-1"><li>{{ $message }}</li></div>
-                    @enderror
+                  
+
+                    @foreach ($errors->get('prdPresentacion') as $error)
+                    
+                        <div class="alert alert-danger mt-1"><li>{{ $error }}</li></div>
+                    
+                    @endforeach
 
                     <label>Stock:</label>
                     <input type="text" name="prdStock" value="{{ old('prdStock') }}"  placeholder="{{ $producto->prdStock }}" class="form-control @error('prdStock') is-invalid @enderror">
@@ -84,15 +90,23 @@
                         <input type="file" name="prdImagen" class="custom-file-input @error('prdImagen') is-invalid @enderror" value="{{ old('prdImagen') }}"  placeholder="{{ $producto->prdImagen }}" lang="es">
                         <label class="custom-file-label" for="customFileLang">Seleccionar una imagen...</label>
                       </div>
-                      @error('prdImagen')
-                      <div class="alert alert-danger mt-1"><li>{{ $message }}</li></div>
-                      @enderror
+                      @foreach ($errors->get('prdImagen') as $error)
+                      <div class="alert alert-danger mt-1"><li>{{ $error }}</li></div>
+                      @endforeach
   
 
                     <input type="hidden" name="idProducto" value="{{ $producto->idProducto }}">
                     
-                    <button class="btn btn-primary mt-2 ">Modificar Producto</button>
+                    <a href="/adminProductos" class="btn btn-info mt-2">
+                        <i class="material-icons"> reply</i>
+                               Volver
+                          </a>
 
+                    <button type="submit" class="btn btn-success mt-2">
+                        <i class="material-icons"> save </i>
+                      Modificar
+                   </button>
+       
                 </form>
             </div>
             <br>

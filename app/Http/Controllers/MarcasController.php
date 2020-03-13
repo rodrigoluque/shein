@@ -42,14 +42,27 @@ class MarcasController extends Controller
      */
     public function store(Request $request)
     {
-        //validacion
+        #VALIDACION#
+        $reglas=[
+            'mkNombre'=> "required|string|min:2|max:20"
+      ];
+ 
+        $mensajes=[
+         "string" =>"El campo :attribute debe contener un texto.",
+         "min" =>"El campo :attribute tiene que tener un minimo :min de caracteres",
+         "max" =>"El campo :attribute tiene un máximo de :max",
+         "required" => "El campo :attribute esta vacío."
+        ];
+ 
+        $this->validate($request,$reglas,$mensajes);
+
 
         $mkNombre = $request->input('mkNombre');
         $Marca = new Marca;
         $Marca->mkNombre = $mkNombre;
         $Marca->save();
         return redirect('/adminMarcas')
-            ->with('mensaje', 'Marca '.$Marca->mkNombre.' agregada con éxito');
+            ->with('mensaje', 'La marca '.$Marca->mkNombre.' fué agregada con éxito');
     }
 
     /**
@@ -85,7 +98,23 @@ class MarcasController extends Controller
      */
     public function update(Request $request)
     {
-        //
+        
+         #VALIDACION#
+        $reglas=[
+            'mkNombre'=> "required|string|min:2|max:20"
+      ];
+ 
+        $mensajes=[
+         "string" =>"El campo :attribute debe contener un texto.",
+         "min" =>"El campo :attribute tiene que tener un minimo :min de caracteres",
+         "max" =>"El campo :attribute tiene un máximo de :max",
+         "required" => "El campo :attribute esta vacío."
+        ];
+ 
+        $this->validate($request,$reglas,$mensajes);
+ 
+        #LLAMAMOS AL METODO FIND Y GUARDAMOS#
+
         $Marca = Marca::find($request->input('idMarca'));
         $Marca->mkNombre = $request->input('mkNombre');
         $Marca->save();

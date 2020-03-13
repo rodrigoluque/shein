@@ -17,7 +17,7 @@
      @endif
 
    <div class="table-responsive">
-        <table class="table table-hover table-striped table-bordered">
+        <table class="table table-hover table-striped table-bordered mx-auto">
             <thead class="bg-info">
             <tr>
                 <th>Nombre</th>

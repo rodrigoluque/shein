@@ -2,28 +2,31 @@
 
     @section('title', 'Alta de una nueva Marca')
 
-
-    @section('main')
-
         @section('h1', 'Alta de una nueva categoria')
-
-        <div class="card bg-light col-md-7 mt-5 p-3 mx-auto">
+   <br>
+      @section('main')
+        <div class="card bg-light col-md-5 mt-5 p-3 mx-auto">
         <form action="/agregarCategoria" method="post" >
             @csrf
 
             <div class="form-group">
-                <label for="catNombre">Categoria:</label>
-                <input type="text" class="form-control" name="catNombre"  value="{{ old('catNombre') }}" id="catNombre" placeholder="nombre de la Categoria">
+                <label for="catNombre"> Nueva Categoria:</label>
+                <input type="text" class="form-control" name="catNombre"  value="{{ old('catNombre') }}" id="catNombre" placeholder="Ingrese nueva categoria">
+                @foreach ($errors->get('catNombre') as $error)
+                <div class="alert alert-danger mt-1"><li>{{ $error }}</li></div>
+              @endforeach
             </div>
-            <button type="submit" class="btn btn-dark px-4">
-                <i class="far fa-plus-square fa-lg mr-2"></i>
-                Agregar Categoria
-            </button>
-            <a href="/adminCategorias" class="btn btn-outline-secondary ml-3">
-                volver al panel de categorias
-            </a>
+            <a href="/adminCategorias" class="btn btn-info mt-1">
+                <i class="material-icons"> reply</i>
+                       Volver
+                  </a>
+      
+                  <button type="submit" class="btn btn-success mt-1">
+                       <i class="material-icons"> save </i>
+                      Agregar
+                  </button>
 
-            @if(count($errors))
+         <!--   @if(count($errors))
                 <div class="form-group mt-3">
                     <div class="alert alert-danger">
                         <ul>
@@ -33,7 +36,7 @@
                         </ul>
                     </div>
                 </div>
-            @endif
+            @endif -->
 
         </form>
         </div>

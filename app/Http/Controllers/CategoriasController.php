@@ -15,7 +15,7 @@ class CategoriasController extends Controller
     public function index()
     {
         //
-        $categorias = Categoria::paginate(6);
+        $categorias = Categoria::paginate(8);
         return view('adminCategorias', [ 'categorias' =>  $categorias ]);
     }
 
@@ -38,14 +38,22 @@ class CategoriasController extends Controller
      */
     public function store(Request $request)
     {
-        //
+        
+    #VALIDACION#
+        $reglas=[
+            'catNombre'=> "required|string|min:2|max:20"
+      ];
+ 
+        $mensajes=[
+         "string" =>"El campo :attribute debe contener un texto.",
+         "min" =>"El campo :attribute tiene que tener un minimo :min de caracteres",
+         "max" =>"El campo :attribute tiene un máximo de :max",
+         "required" => "El campo :attribute esta vacío."
+        ];
+ 
+        $this->validate($request,$reglas,$mensajes);
+
         $categoria = new Categoria();
-        ######## validacion
-        $validacion = $request->validate(
-            [
-                'catNombre' => 'required|min:3|max:75',
-            ]
-        );
         $categoria->catNombre = request('catNombre');
         $categoria->save();
         return redirect('/adminCategorias')->with('mensaje', 'Categoria '.$categoria->catNombre.' agregada con éxito');
@@ -84,12 +92,26 @@ class CategoriasController extends Controller
      */
     public function update(Request $request)
     {
-        
+        #VALIDACION#
+        $reglas=[
+            'catNombre'=> "required|string|min:2|max:20"
+      ];
+ 
+        $mensajes=[
+         "string" =>"El campo :attribute debe contener un texto.",
+         "min" =>"El campo :attribute tiene que tener un minimo :min de caracteres",
+         "max" =>"El campo :attribute tiene un máximo de :max",
+         "required" => "El campo :attribute esta vacío."
+        ];
+ 
+        $this->validate($request,$reglas,$mensajes);
+
+        #LLAMAMOS AL METODO BIND Y GUARDAMOS#
         $Categoria = Categoria::find($request->input('idCategoria'));
         $Categoria->catNombre = $request->input('catNombre');
         $Categoria->save();
         return redirect('/adminCategorias')
-            ->with('mensaje', 'Categoria '.$Categoria->catNombre.' modificada con éxito');
+            ->with('mensaje', 'La Categoria '.$Categoria->catNombre.'  fué modificada con éxito');
     }
 
     /**

@@ -1,7 +1,7 @@
 @extends('layout.plantilla')
 
     @section('title', 'Panel de Marcas')
-
+    <br>
     @section('h1', 'Panel de Marcas')
 
     @section('main')
@@ -12,8 +12,8 @@
                 {{ session()->get('mensaje') }}
             </div>
         @endif
-
-        <table class="table table-bordered table-hover table-striped">
+        <div class="col-md-2 mx-auto"> {{ $marcas->links() }} </div>
+        <table class="table table-bordered table-hover table-striped col-md-5 mx-auto">
             <thead class="bg-info">
             <tr>
                 <th >id</th>
@@ -47,9 +47,10 @@
                 </tr>
             @endforeach
             </tbody>
+           
         </table>
 
-        {{ $marcas->links() }}
+
 
         <br>
 

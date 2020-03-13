@@ -1,14 +1,14 @@
 @extends('layout.plantilla')
 
     @section('title', 'Formulario de eliminar una Producto')
-
+<br>
     @section('h1', 'Formulario de eliminar una Producto')
 
     @section('main')
 
     
 
-    <div class="alert bg-light p-4">
+    <div class="alert bg-light p-3 col-md-5 mx-auto">
     <h6>¿Esta seguro que quiere eliminar el producto? :  {{ $producto->prdNombre }} </h6>
     
     <div class="card-text-center ml-5" style="width: 18rem;">
@@ -22,10 +22,11 @@
                 <i class="material-icons">
                     reply
                     </i>
+                    Volver
                 </a>
             <button class="btn btn-danger"><i class="material-icons">
                 delete_sweep
-                </i></button>
+                </i> Eliminar</button>
             
       </form>
         </div>

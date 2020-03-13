@@ -1,7 +1,7 @@
 @extends('layout.plantilla')
 
     @section('title', 'Panel de Categorías')
-
+<br>
     @section('h1', 'Panel de Categorías')
 
     @section('main')
@@ -15,13 +15,13 @@
  @endif
 
 
-
+ <div class="col-md-2 mx-auto"> {{ $categorias->links() }} </div>
  
-        <table class="table table-bordered table-hover table-striped">
+        <table class="table table-bordered table-hover table-striped col-md-6 mx-auto">
             <thead class="bg-info">
             <tr>
-                <th>id</th>
-                <th>Categoria</th>
+                <th >id</th>
+                <th >Categoria</th>
                 <th colspan="2">
                     <a href="/formAgregarCategoria" class="btn btn-success"> <i class="material-icons">
                         add
@@ -32,9 +32,9 @@
             <tbody>
             @foreach( $categorias as $categoria )
                 <tr>
-                    <td>{{$categoria->idCategoria}}</td>
-                    <td>{{$categoria->catNombre}}</td>
-                    <td>
+                    <td  >{{$categoria->idCategoria}}</td>
+                    <td >{{$categoria->catNombre}}</td>
+                    <td >
                         <a href="/formModificarCategoria/{{$categoria->idCategoria}}" class="btn btn-primary">
                             <i class="material-icons">
                                 create   </i>
@@ -50,9 +50,6 @@
             @endforeach
             </tbody>
         </table>
-
-       
-        <div class="center">{{ $categorias->links() }}</div>
 
         <br>
     @endsection

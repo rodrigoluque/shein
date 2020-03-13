@@ -52,20 +52,7 @@ class ProductosController extends Controller
      */
     public function store(Request $request)
     {
-        $validacion = $request->validate([
-            'prdImagen' => 'file|mimes:jpeg,png,jpg,gif,svg|max:2048'
-        ]);
-
-        $imageName = '';
-        if( $request->file('prdImagen') ) {
-            //$imageName = time().'.'.request()->prdImagen->getClientOriginalExtension();
-            $imagen = $request->file('prdImagen');
-            //$imagen->getClientOriginalExtension();
-            $imageName = $request->prdImagen->getClientOriginalName();
-            $request->prdImagen->move(public_path('images/productos'), $imageName);
-        }
-       else $imageName = 'noDisponible.jpg';
-      
+        
       /*
       METODO PARA GUARDAR POR EL METODO STORE DE LARAVEL
       
@@ -76,7 +63,7 @@ class ProductosController extends Controller
     $ruta=$request->file("prdImagen")->store("public/images");
     $nombreArchivo=basename($ruta);*/ 
 
-
+/*
         $prdNombre = $request->input('prdNombre');
         $prdPrecio = $request->input('prdPrecio');
         $idMarca = $request->input('idMarca');
@@ -93,10 +80,58 @@ class ProductosController extends Controller
         $Producto->prdPresentacion = $prdPresentacion;
         $Producto->prdStock = $prdStock;
         $Producto->prdImagen = $prdImagen;
+        $Producto->save();*/
+       /* return redirect('/adminProductos')
+            ->with('mensaje', 'El Producto '.$Producto->prdNombre.' sé agregó con éxito');*/
+
+          
+       # VALIDACION #
+       $reglas=[
+        'prdNombre'=> "string|min:2|max:20",
+        'prdPrecio' => "numeric|min:0|max:20000" ,
+        'prdPresentacion' => "string|min:2|max:50",
+        'prdStock' => "integer|min:0|max:1000",
+        'prdImagen' => 'file|required|mimes:jpeg,png,jpg,gif,svg|max:2048'
+    ];
+
+    $mensajes=[
+     "string" =>"El campo :attribute debe contener un texto",
+     "min" =>"El campo :attribute tiene que tener un minimo :min de caracteres",
+     "max" =>"El campo :attribute tiene un máximo de :max",
+     "numeric"=>"El campo :attribute debe ser un número mayor a cero",
+     "integer" =>"El campo :attribute de se un número entero",
+     "file" =>"El archivo debe ser jpeg,png,jpg,gig,svg",
+     "required" => "Falta subir una imagen"
+    ];
+
+    $this->validate($request,$reglas,$mensajes);
+
+
+    $imageName = '';
+    if( $request->file('prdImagen') ) {
+        //$imageName = time().'.'.request()->prdImagen->getClientOriginalExtension();
+        $imagen = $request->file('prdImagen');
+        //$imagen->getClientOriginalExtension();
+        $imageName = $request->prdImagen->getClientOriginalName();
+        $request->prdImagen->move(public_path('images/productos'), $imageName);
+    }
+   else $imageName = 'noDisponible.jpg';
+
+
+   $Producto = Producto::find($request->input('idProducto'));
+        $Producto = new Producto;
+        $Producto->prdNombre = $request->input('prdNombre');
+        $Producto->prdPrecio = $request->input('prdPrecio');
+        $Producto->idMarca = $request->input('idMarca');
+        $Producto->idCategoria = $request->input('idCategoria');
+        $Producto->prdPresentacion = $request->input('prdPresentacion');
+        $Producto->prdStock = $request->input('prdStock');
+        $Producto->prdImagen= $imageName;
         $Producto->save();
+
         return redirect('/adminProductos')
             ->with('mensaje', 'El Producto '.$Producto->prdNombre.' sé agregó con éxito');
-
+             
     }
 
 
@@ -160,7 +195,7 @@ class ProductosController extends Controller
            'prdPrecio' => "numeric|min:0|max:20000" ,
            'prdPresentacion' => "string|min:2|max:30",
            'prdStock' => "integer|min:0|max:1000",
-           'prdImagen' => 'file|mimes:jpeg,png,jpg,gif,svg|max:2048'
+           'prdImagen' => 'file|required|mimes:jpeg,png,jpg,gif,svg|max:2048'
        ];
 
        $mensajes=[
@@ -169,7 +204,8 @@ class ProductosController extends Controller
         "max" =>"El campo :attribute tiene un máximo de :max",
         "numeric"=>"El campo :attribute debe ser un número",
         "integer" =>"El campo :attribute de se un número entero",
-        "file" =>"El archivo debe ser jpeg,png,jpg,gig,svg"
+        "file" =>"El archivo debe ser jpeg,png,jpg,gig,svg",
+        "required" => "Falta subir una imagen"
        ];
 
        $this->validate($request,$reglas,$mensajes);
