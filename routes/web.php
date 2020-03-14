@@ -18,9 +18,7 @@ Route::get('/', function () {
 
 ############# RUTAS USUARIOS INVITADOS ##########
 
-Route::get('/inicio', function(){
-    return view('inicio');
-});
+Route::get('/inicio', 'InicioController@index');
 
 Route::get('/sobreNosotros',function(){
     return view('sobreNosotros');
