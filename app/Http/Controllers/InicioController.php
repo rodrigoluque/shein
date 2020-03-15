@@ -12,7 +12,7 @@ class InicioController extends Controller
     public function index()
     {
         //
-        $productos = Producto::with('getMarca', 'getCategoria')->get();
+        $productos = Producto::Paginate(8);
         return view('inicio',
             [
                 'productos'=>$productos
