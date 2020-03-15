@@ -20,6 +20,8 @@ Route::get('/', function () {
 
 Route::get('/inicio', 'InicioController@index');
 
+Route::get('/producto/{id}', 'InicioController@producto');
+
 Route::get('/sobreNosotros',function(){
     return view('sobreNosotros');
 });

@@ -18,4 +18,11 @@ class InicioController extends Controller
                 'productos'=>$productos
             ]);
     }
+
+    public function producto($id)
+    {   $producto = Producto::find($id);
+        $vac = compact('producto');
+        return view('producto', $vac);
+    }
+
 }

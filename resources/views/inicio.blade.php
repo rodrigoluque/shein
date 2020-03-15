@@ -93,15 +93,17 @@
         <article class="col-lg-3 col-md-6 mb-4">
             <!-- van los artículos -->
             <div class="card">
+              <a href="/producto/<?= $producto['idProducto'];?>">  
                 <img src="images/productos/<?= $producto['prdImagen']?>" class="card-img-top" alt="">
+              </a>
             <!--textos del artículo-->
             <div class="card-body text-center">
-                <a href="Producto.html" class="grey-text">
+                <a href="/producto/<?= $producto['idProducto'];?>" class="grey-text">
                     <h5><?= $producto['prdNombre'];?></h5>
                 </a>
                 <h5>
                     <strong>
-                        <a href="Producto.html" class="dark-grey-text"><?= $producto['prdPresentacion'];?>
+                        <a href="/producto/<?= $producto['idProducto'];?>" class="dark-grey-text"><?= $producto['prdPresentacion'];?>
                         <span class="badge badge-pill danger-color">Nuevo</span>
                         </a>
                     </strong>
