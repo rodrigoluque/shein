@@ -61,6 +61,25 @@
         </ul>
         <!-- links de la derecha -->
         <ul class="navbar-nav nav-flex-icons">
+            @guest
+            <li class="nav-item">
+                <a class="nav-link" href="/register" target="_self">Registro</a>
+            </li>
+            <li class="nav-item">
+                <a class="nav-link" href="/login" target="_self">Login</a>
+            </li>
+            @else
+            <li class="nav-item nav-link">
+                {{ 'Hola ' . auth()->user()->name }}
+            </li>
+
+            <li><a class="nav-link" href="/inicio" onclick="event.preventDefault();
+                     document.getElementById('logout-form').submit();">Cerrar Sesión</a>
+            </li>
+            @endguest
+            <form id="logout-form" action="{{ route('logout') }}" method="POST" style="display: none;">
+                @csrf
+            </form>
 
             <li class="nav-item">
                 <a href="https://www.facebook.com" class="nav-link" target="_blank">
@@ -101,13 +120,13 @@
 <footer class="page-footer text-center font-small mt-5 bg-dark">
 
     <div class="pt-4">
-        <a class="btn-outline-light pl-3 pr-3" href="index.php" target="_self" role="button">Home</a>
-        <a class="btn-outline-light pl-3 pr-3" href="index.php" target="_self" role="button">Sobre Nosotros</a>
-        <a class="btn-outline-light pl-3 pr-3" href="perfil.php" target="_self" role="button">Perfil</a>
-        <a class="btn-outline-light pl-3 pr-3" href="faq.php" target="_self" role="button">Preguntas frecuentes</a>
-        <a class="btn-outline-light pl-3 pr-3" href="registro.php" target="_self" role="button">Registrarse</a>
-        <a class="btn-outline-light pl-3 pr-3" href="login.php" target="_self" role="button">Login</a>
-        <a class="btn-outline-light pl-3 pr-3" href="formularioContacto.php" target="_self" role="button">Contacto</a>
+        <a class="btn-outline-light pl-3 pr-3" href="/inicio" target="_self" role="button">Inicio</a>
+        <a class="btn-outline-light pl-3 pr-3" href="/sobreNosotros" target="_self" role="button">Sobre Nosotros</a>
+        <a class="btn-outline-light pl-3 pr-3" href="/perfil" target="_self" role="button">Perfil</a>
+        <a class="btn-outline-light pl-3 pr-3" href="/preguntasFrecuentes" target="_self" role="button">Preguntas frecuentes</a>
+        <a class="btn-outline-light pl-3 pr-3" href="/contacto" target="_self" role="button">Contacto</a>
+        <a class="btn-outline-light pl-3 pr-3" href="/register" target="_self" role="button">Registro</a>
+        <a class="btn-outline-light pl-3 pr-3" href="/login" target="_self" role="button">Login</a>
     </div>
   
     <div class="p-4">

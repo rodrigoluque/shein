@@ -34,41 +34,46 @@ Route::get('/contacto',function(){
     return view('contacto');
 });
 
-############ CRUD CATEGORIAS ################
-//Route::view('/adminCategorias', 'adminCategorias');
-Route::get('/adminCategorias', 'CategoriasController@index');
-Route::get('/formAgregarCategoria', 'CategoriasController@create');
-Route::post('/agregarCategoria', 'CategoriasController@store');
 
-Route::get('/formModificarCategoria/{id}','CategoriasController@edit');
-Route::post('/modificarCategoria','CategoriasController@update');
+Route::group(['middleware' => 'admin'], function () {
+	############ CRUD CATEGORIAS ################
+	//Route::view('/adminCategorias', 'adminCategorias');
+	Route::get('/adminCategorias', 'CategoriasController@index');
+	Route::get('/formAgregarCategoria', 'CategoriasController@create');
+	Route::post('/agregarCategoria', 'CategoriasController@store');
 
-Route::get('/formEliminarCategoria/{id}','CategoriasController@delete');
-Route::post('eliminarCategoria','CategoriasController@destroy');
+	Route::get('/formModificarCategoria/{id}','CategoriasController@edit');
+	Route::post('/modificarCategoria','CategoriasController@update');
 
-############## CRUD Marcas ###################
-Route::get('/adminMarcas', 'MarcasController@index');
+	Route::get('/formEliminarCategoria/{id}','CategoriasController@delete');
+	Route::post('eliminarCategoria','CategoriasController@destroy');
 
-Route::get('/formAgregarMarca', 'MarcasController@create');
-Route::post('/agregarMarca', 'MarcasController@store');
+	############## CRUD Marcas ###################
+	Route::get('/adminMarcas', 'MarcasController@index');
 
-Route::get('/formModificarMarca/{id}', 'MarcasController@edit');
-Route::post('/modificarMarca', 'MarcasController@update');
+	Route::get('/formAgregarMarca', 'MarcasController@create');
+	Route::post('/agregarMarca', 'MarcasController@store');
 
-Route::get('/formEliminarMarca/{id}','MarcasController@delete');
-Route::post('/eliminarMarca','MarcasController@destroy');
+	Route::get('/formModificarMarca/{id}', 'MarcasController@edit');
+	Route::post('/modificarMarca', 'MarcasController@update');
 
-############## CRUD PRODUCTOS ###################
-Route::get('/formModificarProducto/{id}','ProductosController@edit');
-Route::post('/modificarProducto', 'ProductosController@update');
+	Route::get('/formEliminarMarca/{id}','MarcasController@delete');
+	Route::post('/eliminarMarca','MarcasController@destroy');
 
-Route::get('/formEliminarProducto/{id}','ProductosController@delete');
-Route::post('/eliminarProducto','ProductosController@destroy');
+	############## CRUD PRODUCTOS ###################
+	Route::get('/formModificarProducto/{id}','ProductosController@edit');
+	Route::post('/modificarProducto', 'ProductosController@update');
 
-Route::get('/adminProductos', 'ProductosController@index');
+	Route::get('/formEliminarProducto/{id}','ProductosController@delete');
+	Route::post('/eliminarProducto','ProductosController@destroy');
 
-Route::get('/formAgregarProducto', 'ProductosController@create');
-Route::post('/agregarProducto','ProductosController@store');
+	Route::get('/adminProductos', 'ProductosController@index');
+
+	Route::get('/formAgregarProducto', 'ProductosController@create');
+	Route::post('/agregarProducto','ProductosController@store');
+});
 
 
+Auth::routes();
 
+Route::get('/home', 'HomeController@index')->name('home');
