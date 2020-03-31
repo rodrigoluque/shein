@@ -34,6 +34,9 @@ Route::get('/contacto',function(){
     return view('contacto');
 });
 
+Route::get('/carrito',function(){
+    return view('carrito');
+});
 
 Route::group(['middleware' => 'admin'], function () {
 	############ CRUD CATEGORIAS ################

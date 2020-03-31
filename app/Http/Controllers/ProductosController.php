@@ -2,7 +2,7 @@
 
 namespace App\Http\Controllers;
 
-use App\Categoria;
+use App\Categoria;  
 use App\Marca;
 use App\Producto;
 use Illuminate\Http\Request;

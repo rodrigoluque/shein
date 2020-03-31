@@ -1,123 +1,205 @@
--- --------------------------------------------------------
--- Host:                         127.0.0.1
--- Versión del servidor:         5.5.62-log - MySQL Community Server (GPL)
--- SO del servidor:              Win64
--- HeidiSQL Versión:             10.1.0.5464
--- --------------------------------------------------------
+-- phpMyAdmin SQL Dump
+-- version 4.9.1
+-- https://www.phpmyadmin.net/
+--
+-- Servidor: 127.0.0.1
+-- Tiempo de generación: 31-03-2020 a las 05:27:19
+-- Versión del servidor: 10.4.8-MariaDB
+-- Versión de PHP: 7.3.11
+
+SET SQL_MODE = "NO_AUTO_VALUE_ON_ZERO";
+SET AUTOCOMMIT = 0;
+START TRANSACTION;
+SET time_zone = "+00:00";
+
 
 /*!40101 SET @OLD_CHARACTER_SET_CLIENT=@@CHARACTER_SET_CLIENT */;
-/*!40101 SET NAMES utf8 */;
-/*!50503 SET NAMES utf8mb4 */;
-/*!40014 SET @OLD_FOREIGN_KEY_CHECKS=@@FOREIGN_KEY_CHECKS, FOREIGN_KEY_CHECKS=0 */;
-/*!40101 SET @OLD_SQL_MODE=@@SQL_MODE, SQL_MODE='NO_AUTO_VALUE_ON_ZERO' */;
+/*!40101 SET @OLD_CHARACTER_SET_RESULTS=@@CHARACTER_SET_RESULTS */;
+/*!40101 SET @OLD_COLLATION_CONNECTION=@@COLLATION_CONNECTION */;
+/*!40101 SET NAMES utf8mb4 */;
 
+--
+-- Base de datos: `catalogo`
+--
 
--- Volcando estructura de base de datos para catalogo
-DROP DATABASE IF EXISTS `catalogo`;
-CREATE DATABASE IF NOT EXISTS `catalogo` /*!40100 DEFAULT CHARACTER SET utf8 */;
-USE `catalogo`;
+-- --------------------------------------------------------
 
--- Volcando estructura para tabla catalogo.categorias
-DROP TABLE IF EXISTS `categorias`;
-CREATE TABLE IF NOT EXISTS `categorias` (
-  `idCategoria` int(11) NOT NULL AUTO_INCREMENT,
-  `catNombre` varchar(30) NOT NULL,
-  PRIMARY KEY (`idCategoria`)
-) ENGINE=InnoDB AUTO_INCREMENT=9 DEFAULT CHARSET=utf8;
+--
+-- Estructura de tabla para la tabla `categorias`
+--
 
--- Volcando datos para la tabla catalogo.categorias: ~6 rows (aproximadamente)
-DELETE FROM `categorias`;
-/*!40000 ALTER TABLE `categorias` DISABLE KEYS */;
+CREATE TABLE `categorias` (
+  `idCategoria` int(11) NOT NULL,
+  `catNombre` varchar(30) NOT NULL
+) ENGINE=InnoDB DEFAULT CHARSET=utf8;
+
+--
+-- Volcado de datos para la tabla `categorias`
+--
+
 INSERT INTO `categorias` (`idCategoria`, `catNombre`) VALUES
-	(1, 'Campera'),
-	(2, 'Chaleco'),
-	(3, 'Tapado'),
-	(4, 'Abrigo'),
-	(5, 'Sweater'),
-	(6, 'Camperon');
-/*!40000 ALTER TABLE `categorias` ENABLE KEYS */;
+(1, 'Campera'),
+(2, 'Chaleco'),
+(3, 'Tapado'),
+(4, 'Abrigo'),
+(5, 'Sweater'),
+(6, 'Camperon');
 
--- Volcando estructura para tabla catalogo.marcas
-DROP TABLE IF EXISTS `marcas`;
-CREATE TABLE IF NOT EXISTS `marcas` (
-  `idMarca` int(11) NOT NULL AUTO_INCREMENT,
-  `mkNombre` varchar(30) NOT NULL,
-  PRIMARY KEY (`idMarca`)
-) ENGINE=InnoDB AUTO_INCREMENT=15 DEFAULT CHARSET=utf8;
+-- --------------------------------------------------------
 
--- Volcando datos para la tabla catalogo.marcas: ~13 rows (aproximadamente)
-DELETE FROM `marcas`;
-/*!40000 ALTER TABLE `marcas` DISABLE KEYS */;
+--
+-- Estructura de tabla para la tabla `marcas`
+--
+
+CREATE TABLE `marcas` (
+  `idMarca` int(11) NOT NULL,
+  `mkNombre` varchar(30) NOT NULL
+) ENGINE=InnoDB DEFAULT CHARSET=utf8;
+
+--
+-- Volcado de datos para la tabla `marcas`
+--
+
 INSERT INTO `marcas` (`idMarca`, `mkNombre`) VALUES
-	(1, 'Kosiuko'),
-	(2, 'Zara'),
-	(3, '47 Street'),
-	(4, 'Americanino'),
-	(5, 'Desiderata'),
-	(6, 'Levi\'s'),
-	(7, 'Mossimo'),
-	(9, 'Newport'),
-	(10, 'Roberto Cavalli'),
-	(11, 'Stefano Cocci'),
-	(12, 'Sweet Victorian'),
-	(13, 'Sybilla'),
-	(14, 'Try me');
-/*!40000 ALTER TABLE `marcas` ENABLE KEYS */;
+(1, 'Kosiuko'),
+(2, 'Zara'),
+(3, '47 Street'),
+(4, 'Americanino'),
+(5, 'Desiderata'),
+(6, 'Levi\'s'),
+(7, 'Mossimo'),
+(9, 'Newport'),
+(10, 'Roberto Cavalli'),
+(11, 'Stefano Cocci'),
+(12, 'Sweet Victorian'),
+(13, 'Sybilla'),
+(14, 'Try me');
 
--- Volcando estructura para tabla catalogo.productos
-DROP TABLE IF EXISTS `productos`;
-CREATE TABLE IF NOT EXISTS `productos` (
-  `idProducto` int(11) NOT NULL AUTO_INCREMENT,
+-- --------------------------------------------------------
+
+--
+-- Estructura de tabla para la tabla `productos`
+--
+
+CREATE TABLE `productos` (
+  `idProducto` int(11) NOT NULL,
   `prdNombre` varchar(30) NOT NULL,
   `prdPrecio` double NOT NULL,
   `idMarca` int(11) NOT NULL,
   `idCategoria` int(11) NOT NULL,
   `prdPresentacion` text NOT NULL,
   `prdStock` int(6) NOT NULL,
-  `prdImagen` tinytext,
-  PRIMARY KEY (`idProducto`),
-  KEY `Marca` (`idMarca`),
-  KEY `Rubro` (`idCategoria`),
-  CONSTRAINT `productos_ibfk_1` FOREIGN KEY (`idMarca`) REFERENCES `marcas` (`idMarca`) ON DELETE CASCADE ON UPDATE CASCADE,
-  CONSTRAINT `productos_ibfk_2` FOREIGN KEY (`idCategoria`) REFERENCES `categorias` (`idCategoria`) ON DELETE CASCADE ON UPDATE CASCADE
-) ENGINE=InnoDB AUTO_INCREMENT=11 DEFAULT CHARSET=utf8;
+  `prdImagen` tinytext DEFAULT NULL
+) ENGINE=InnoDB DEFAULT CHARSET=utf8;
 
--- Volcando datos para la tabla catalogo.productos: ~9 rows (aproximadamente)
-DELETE FROM `productos`;
-/*!40000 ALTER TABLE `productos` DISABLE KEYS */;
+--
+-- Volcado de datos para la tabla `productos`
+--
+
 INSERT INTO `productos` (`idProducto`, `prdNombre`, `prdPrecio`, `idMarca`, `idCategoria`, `prdPresentacion`, `prdStock`, `prdImagen`) VALUES
-	(2, 'Hooded Plain Coat', 2000, 2, 1, 'cotton,women, style, clothing_length', 50, 'img2.jpeg'),
-	(3, 'Abrigo Impermeable', 1500, 11, 6, 'Hink de Lluvia,Impermeable con Capucha', 15, 'HY69XHnA5aOEXwUXMiEczUCrt7Hk4NTudG8mCW6T.jpeg'),
-	(4, 'Wantdo Abrigo', 3500, 5, 3, 'Doble Botonadura con Cinturón,', 27, '5HEsNRoYijmu1QrBDecEvBptug6siwDViyPaif0Q.jpeg'),
-	(5, 'Long Sleeve', 4500, 6, 3, 'Collar Buttons Coats, de paño', 45, 'l3EEb4TUqhTdcIH1G4iE8PseItehNqvtFATiZqGv.jpeg'),
-	(6, 'Parka', 2800, 3, 1, 'Impermeable', 35, 'mqba3xoshT9yowvq0J7TkXmtkTSkzs2sjG4KZmuu.jpeg'),
-	(7, 'Lunch Cooler Bag', 1200, 9, 2, 'Customizeable,negro', 80, 'JqZGgv2YiXL5vb3CuDea9obS61CXTB6iWJJKifGB.jpeg'),
-	(8, 'Roya Puffer', 4500, 12, 1, 'Pongee down filled puffer,blanco', 5, 'DJeFGeZ41gOSotSExQowg8T2S9x9j7kqOFzndKbk.jpeg'),
-	(9, 'Kie Sweet', 8000, 12, 1, 'Sweet cotton', 10, 'img3.jpg'),
-	(10, 'Kirk blue', 3200, 10, 1, 'Tela jean', 36, 'mmZEeLxnbp3nRTw26l3ja1Klk4LPg3f4mHHJ96nE.jpeg');
-/*!40000 ALTER TABLE `productos` ENABLE KEYS */;
+(2, 'Hooded Plain Coat', 2000, 2, 1, 'cotton,women, style, clothing_length', 50, 'img2.jpeg'),
+(3, 'Abrigo Impermeable', 1500, 11, 6, 'Hink de Lluvia,Impermeable con Capucha', 15, 'HY69XHnA5aOEXwUXMiEczUCrt7Hk4NTudG8mCW6T.jpeg'),
+(4, 'Wantdo Abrigo', 3500, 5, 3, 'Doble Botonadura con Cinturón,', 27, '5HEsNRoYijmu1QrBDecEvBptug6siwDViyPaif0Q.jpeg'),
+(5, 'Long Sleeve', 4500, 6, 3, 'Collar Buttons Coats, de paño', 45, 'l3EEb4TUqhTdcIH1G4iE8PseItehNqvtFATiZqGv.jpeg'),
+(6, 'Parka', 2800, 3, 1, 'Impermeable', 35, 'mqba3xoshT9yowvq0J7TkXmtkTSkzs2sjG4KZmuu.jpeg'),
+(7, 'Lunch Cooler Bag', 1200, 9, 2, 'Customizeable,negro', 80, 'JqZGgv2YiXL5vb3CuDea9obS61CXTB6iWJJKifGB.jpeg'),
+(8, 'Roya Puffer', 4500, 12, 1, 'Pongee down filled puffer,blanco', 5, 'DJeFGeZ41gOSotSExQowg8T2S9x9j7kqOFzndKbk.jpeg'),
+(9, 'Kie Sweet', 8000, 12, 1, 'Sweet cotton', 10, 'img3.jpg'),
+(10, 'Kirk blue', 3200, 10, 1, 'Tela jean', 36, 'mmZEeLxnbp3nRTw26l3ja1Klk4LPg3f4mHHJ96nE.jpeg');
 
--- Volcando estructura para tabla catalogo.usuarios
-DROP TABLE IF EXISTS `usuarios`;
-CREATE TABLE IF NOT EXISTS `usuarios` (
-  `idUsuario` int(11) NOT NULL AUTO_INCREMENT,
-  `usuNombre` varchar(30) NOT NULL,
-  `usuApellido` varchar(30) NOT NULL,
-  `usuEmail` varchar(30) NOT NULL,
-  `usuPass` varchar(30) NOT NULL,
-  `usuEstado` tinyint(1) DEFAULT '0',
-  PRIMARY KEY (`idUsuario`),
-  UNIQUE KEY `Email` (`usuEmail`)
-) ENGINE=InnoDB AUTO_INCREMENT=3 DEFAULT CHARSET=utf8;
+-- --------------------------------------------------------
 
--- Volcando datos para la tabla catalogo.usuarios: ~2 rows (aproximadamente)
-DELETE FROM `usuarios`;
-/*!40000 ALTER TABLE `usuarios` DISABLE KEYS */;
-INSERT INTO `usuarios` (`idUsuario`, `usuNombre`, `usuApellido`, `usuEmail`, `usuPass`, `usuEstado`) VALUES
-	(1, 'admin', 'admin', 'admin@admin.com', 'admin', 1),
-	(2, 'nombretest', 'apellidotest', 'test@mail.com', 'clavetest', 1);
-/*!40000 ALTER TABLE `usuarios` ENABLE KEYS */;
+--
+-- Estructura de tabla para la tabla `users`
+--
 
-/*!40101 SET SQL_MODE=IFNULL(@OLD_SQL_MODE, '') */;
-/*!40014 SET FOREIGN_KEY_CHECKS=IF(@OLD_FOREIGN_KEY_CHECKS IS NULL, 1, @OLD_FOREIGN_KEY_CHECKS) */;
+CREATE TABLE `users` (
+  `id` int(11) NOT NULL,
+  `name` varchar(30) NOT NULL,
+  `email` varchar(30) NOT NULL,
+  `password` varchar(100) NOT NULL,
+  `role` text NOT NULL DEFAULT 'user'
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
+
+--
+-- Volcado de datos para la tabla `users`
+--
+
+INSERT INTO `users` (`id`, `name`, `email`, `password`, `role`) VALUES
+(1, 'Eduardo', 'eduardo@hotmail.com', '$2y$10$DtgoayPBjHgEJxnHRK3o3u.gkxbcre.AQugvA4U8OiPtRKsIricIK', 'admin'),
+(2, 'Eduardo', 'correodeledu@hotmail.com', '$2y$10$Aasi7eaYxJCNgAYjKUFYtee7YPS4ZxXXy4X6g8HwDCPTaZadpnYWe', 'user'),
+(3, 'Eduardo', 'eduardo2@hotmail.com', '$2y$10$9sjQovcnMTyxt6oxyXUhMuTEU79iSRj/oRGgcniIVyLEe78xeo8Ee', 'user');
+
+--
+-- Índices para tablas volcadas
+--
+
+--
+-- Indices de la tabla `categorias`
+--
+ALTER TABLE `categorias`
+  ADD PRIMARY KEY (`idCategoria`);
+
+--
+-- Indices de la tabla `marcas`
+--
+ALTER TABLE `marcas`
+  ADD PRIMARY KEY (`idMarca`);
+
+--
+-- Indices de la tabla `productos`
+--
+ALTER TABLE `productos`
+  ADD PRIMARY KEY (`idProducto`),
+  ADD KEY `Marca` (`idMarca`),
+  ADD KEY `Rubro` (`idCategoria`);
+
+--
+-- Indices de la tabla `users`
+--
+ALTER TABLE `users`
+  ADD PRIMARY KEY (`id`);
+
+--
+-- AUTO_INCREMENT de las tablas volcadas
+--
+
+--
+-- AUTO_INCREMENT de la tabla `categorias`
+--
+ALTER TABLE `categorias`
+  MODIFY `idCategoria` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=9;
+
+--
+-- AUTO_INCREMENT de la tabla `marcas`
+--
+ALTER TABLE `marcas`
+  MODIFY `idMarca` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=15;
+
+--
+-- AUTO_INCREMENT de la tabla `productos`
+--
+ALTER TABLE `productos`
+  MODIFY `idProducto` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=11;
+
+--
+-- AUTO_INCREMENT de la tabla `users`
+--
+ALTER TABLE `users`
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=4;
+
+--
+-- Restricciones para tablas volcadas
+--
+
+--
+-- Filtros para la tabla `productos`
+--
+ALTER TABLE `productos`
+  ADD CONSTRAINT `productos_ibfk_1` FOREIGN KEY (`idMarca`) REFERENCES `marcas` (`idMarca`) ON DELETE CASCADE ON UPDATE CASCADE,
+  ADD CONSTRAINT `productos_ibfk_2` FOREIGN KEY (`idCategoria`) REFERENCES `categorias` (`idCategoria`) ON DELETE CASCADE ON UPDATE CASCADE;
+COMMIT;
+
 /*!40101 SET CHARACTER_SET_CLIENT=@OLD_CHARACTER_SET_CLIENT */;
+/*!40101 SET CHARACTER_SET_RESULTS=@OLD_CHARACTER_SET_RESULTS */;
+/*!40101 SET COLLATION_CONNECTION=@OLD_COLLATION_CONNECTION */;
